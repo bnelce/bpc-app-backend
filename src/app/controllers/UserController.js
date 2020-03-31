@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const Yup = require('yup');
-const connection = require('../database/connection');
+const connection = require('../../database/connection');
+const Mail = require('../../lib/Mail');
 
 module.exports = {
 
@@ -40,6 +41,22 @@ module.exports = {
       name,
       email,
       password_hash,
+    });
+
+    const user = { name, email, password };
+    // disparo com bee-queue
+    // await Queue.add(RegisterMail.key, {
+    // user,
+    // });
+
+
+    Mail.sendMail({
+      to: `${user.name} <${user.email}>`,
+      subject: 'Registro BPC App',
+      template: 'register',
+      context: {
+        name: user.name,
+      },
     });
 
     return res.json({ name, email, password_hash });

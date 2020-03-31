@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const connection = require('../database/connection');
-const authConfig = require('../config/auth');
+const connection = require('../../database/connection');
+const authConfig = require('../../config/auth');
 
 module.exports = {
 
@@ -15,10 +15,9 @@ module.exports = {
       return res.status(401).json({ error: 'Usuário não encontrado!' });
     }
 
-    if (!(bcrypt.compare(password, this.password_hash))) {
+    if (!(await bcrypt.compare(password, user.password_hash))) {
       return res.status(401).json({ error: 'Senha incorreta!' });
     }
-
 
     const { id, name } = user;
 

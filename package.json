@@ -6,7 +6,7 @@
   "author": "Abner Oliveira <abner.oliveira.ce@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "dev": "nodemon src/index.js",
     "start": "node src/index.js"
   },
   "dependencies": {
